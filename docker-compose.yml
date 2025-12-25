@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    container_name: stock-rebalancer
+    ports:
+      - "8080:8080"
