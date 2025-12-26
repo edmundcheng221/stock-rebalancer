@@ -1,4 +1,7 @@
-use axum::{Router, routing::get};
+mod routes;
+mod handlers;
+
+use axum::{Router};
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
 
@@ -8,8 +11,8 @@ async fn main() {
 
     let port = 8080;
 
-    // health check
-    let app = Router::new().route("/_healthy", get(health_check));
+    let app = Router::new()
+                .merge(routes::api_routes());
 
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
     tracing::info!("listening on {}", addr);
@@ -19,9 +22,4 @@ async fn main() {
         .expect("failed to bind address");
 
     axum::serve(listener, app).await.expect("server error")
-}
-
-// Healthy Check Probe
-async fn health_check() -> &'static str {
-    "OK"
 }
