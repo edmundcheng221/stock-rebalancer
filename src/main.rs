@@ -1,7 +1,7 @@
-mod routes;
 mod handlers;
+mod routes;
 
-use axum::{Router};
+use axum::Router;
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
 
@@ -11,8 +11,7 @@ async fn main() {
 
     let port = 8080;
 
-    let app = Router::new()
-                .merge(routes::api_routes());
+    let app = Router::new().merge(routes::api_routes());
 
     let addr = SocketAddr::from(([0, 0, 0, 0], port));
     tracing::info!("listening on {}", addr);
