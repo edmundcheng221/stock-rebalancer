@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-rebalancer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stock-rebalancer
+  template:
+    metadata:
+      labels:
+        app: stock-rebalancer
+    spec:
+      containers:
+      - name: stock-rebalancer
+        image: stock-rebalancer-app:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
