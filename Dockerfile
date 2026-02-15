@@ -1,23 +1,20 @@
 FROM rust:1.92 AS builder
 
-WORKDIR /app
+WORKDIR /usr/src/stock-rebalancer
 
-# Copy manifests
 COPY Cargo.toml Cargo.lock ./
 
-# Copy source
 COPY src ./src
 
-# build
 RUN cargo build --release
 
 FROM debian:bookworm-slim AS runtime
 
 RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
+WORKDIR /usr/src/stock-rebalancer
 
-COPY --from=builder /app/target/release/stock-rebalancer /app/server
+COPY --from=builder /usr/src/stock-rebalancer/target/release/stock-rebalancer /app/server
 
 EXPOSE 8080
 

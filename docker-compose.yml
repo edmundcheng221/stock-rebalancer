@@ -1,6 +1,11 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/usr/src/stock-rebalancer
+      - /usr/src/stock-rebalancer/target
     container_name: stock-rebalancer
     ports:
       - "8080:8080"
