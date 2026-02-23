@@ -2,6 +2,16 @@
 
 Tax Loss Harvesting Checker.
 
+## Todo
+
+- Everything lol
+- Add connector to Schwab
+  - Get investments
+  - Get lots
+  - etc.
+- Add notification service
+- Direct indexing
+
 ## Local Development
 
 ```bash
