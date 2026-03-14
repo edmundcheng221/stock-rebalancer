@@ -1,4 +1,4 @@
-FROM rust:1.92 AS builder
+FROM rust:1.85 AS builder
 
 WORKDIR /usr/src/stock-rebalancer
 
@@ -10,12 +10,15 @@ RUN cargo build --release
 
 FROM debian:bookworm-slim AS runtime
 
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    libssl3 \
+    && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /usr/src/stock-rebalancer
+WORKDIR /app
 
-COPY --from=builder /usr/src/stock-rebalancer/target/release/stock-rebalancer /app/server
+COPY --from=builder /usr/src/stock-rebalancer/target/release/stock-rebalancer ./stock-rebalancer
 
 EXPOSE 8080
 
-CMD ["/app/server"]
+CMD ["./stock-rebalancer"]

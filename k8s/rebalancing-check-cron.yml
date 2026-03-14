@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: rebalancing-check-cron
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: rebalancing-check-cron
+              image: stock-rebalancer-app:latest
+              imagePullPolicy: Never # Critical: Use the local loaded image
+              env:
+                - name: RUN_MODE
+                  value: "job"

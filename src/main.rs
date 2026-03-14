@@ -3,15 +3,23 @@ mod routes;
 
 use axum::Router;
 use dotenvy::dotenv;
-use std::net::SocketAddr;
+use std::{env, net::SocketAddr};
 use tokio::net::TcpListener;
 
 #[tokio::main]
 async fn main() {
-    tracing_subscriber::fmt::init();
+    let run_mode = env::var("RUN_MODE").ok().unwrap_or_default();
 
-    // load env
+    if run_mode == "job" {
+        println!("Running JOB handler...");
+        tokio::time::sleep(tokio::time::Duration::from_secs(2)).await;
+        return; // simply exit for now
+    }
+
+    // load stuff from local .env file
     dotenv().ok();
+
+    tracing_subscriber::fmt::init();
 
     let port = 8080;
 

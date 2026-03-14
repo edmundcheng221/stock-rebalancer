@@ -64,6 +64,12 @@ Apply Service
 kubectl apply -f k8s/service.yml
 ```
 
+Apply Cron
+
+```bash
+kubectl apply -f k8s/rebalancing-check-cron.yml
+```
+
 Load image
 
 ```bash
@@ -76,10 +82,21 @@ Port Forward
 kubectl port-forward service/stock-rebalancer-service 8080:80
 ```
 
-Verify pods are running
+Verify pods/cron/jobs are running
 
 ```bash
 kubectl -n default get pods
+kubectl -n default get cronjob
+kubectl -n default get jobs --watch
 ```
+
+OR simply
+
+```bash
+make minikube-apply
+```
+
+
+
 
 Verify app can be accessible at `http://localhost:8080/_healthy`
