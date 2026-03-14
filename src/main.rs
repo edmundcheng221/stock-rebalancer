@@ -1,8 +1,8 @@
 mod handlers;
 mod routes;
 
-use dotenvy::dotenv;
 use axum::Router;
+use dotenvy::dotenv;
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
 
