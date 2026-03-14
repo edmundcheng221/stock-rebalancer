@@ -14,6 +14,8 @@ Tax Loss Harvesting Checker.
 
 ## Local Development
 
+First, fill out .env.example with your secrets.
+
 ```bash
 make run
 ```

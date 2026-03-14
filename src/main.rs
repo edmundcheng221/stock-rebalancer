@@ -1,6 +1,7 @@
 mod handlers;
 mod routes;
 
+use dotenvy::dotenv;
 use axum::Router;
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
@@ -8,6 +9,9 @@ use tokio::net::TcpListener;
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt::init();
+
+    // load env
+    dotenv().ok();
 
     let port = 8080;
 
