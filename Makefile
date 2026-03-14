@@ -18,6 +18,5 @@ minikube-apply:
 	kubectl apply -f k8s/deployment.yml
 	kubectl apply -f k8s/service.yml
 	kubectl apply -f k8s/rebalancing-check-cron.yml
-	@echo "Waiting for deployment..."
 	kubectl rollout status deployment/stock-rebalancer-deployment
 	kubectl port-forward service/stock-rebalancer-service 8080:80
