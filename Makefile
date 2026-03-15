@@ -1,7 +1,8 @@
 run:
 	cp .env.example .env
+	cargo install --locked prek
 	docker compose build --no-cache
-	docker compose up
+	docker compose up -d
 
 format:
 	cargo fmt
@@ -11,9 +12,13 @@ test:
 	cargo test -- --nocapture
 
 minikube-apply:
-	minikube start
-	# Force the build to linux/amd64 for Minikube compatibility
-	docker build --platform linux/amd64 -t stock-rebalancer-app:latest .
+	@if ! minikube status --format="{{.Host}}" | grep -q "Running"; then \
+		echo "Starting Minikube..."; \
+		minikube start; \
+	else \
+		echo "Minikube already running"; \
+	fi
+	docker buildx build --platform linux/amd64 -t stock-rebalancer-app:latest .
 	minikube image load stock-rebalancer-app:latest
 	kubectl apply -f k8s/deployment.yml
 	kubectl apply -f k8s/service.yml

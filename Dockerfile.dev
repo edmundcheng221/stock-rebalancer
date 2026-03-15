@@ -1,6 +1,12 @@
-FROM rust:1.85
+FROM rust:1.88
+
+RUN apt-get update && apt-get install -y pkg-config libssl-dev && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/stock-rebalancer
-RUN cargo install cargo-watch
+
+RUN curl -L https://github.com/watchexec/cargo-watch/releases/download/v8.5.2/cargo-watch-v8.5.2-x86_64-unknown-linux-musl.tar.xz \
+    | tar -xJ --strip-components=1 -C /usr/local/bin
+
+COPY Cargo.toml Cargo.lock ./
 
 CMD ["cargo", "watch", "-x", "run"]

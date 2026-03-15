@@ -1,4 +1,4 @@
-FROM rust:1.85 AS builder
+FROM rust:1.88-slim AS builder
 
 WORKDIR /usr/src/stock-rebalancer
 

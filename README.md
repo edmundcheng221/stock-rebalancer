@@ -29,13 +29,45 @@ likely charge a fee in addition to the expense ratio of the fund.
 
 ## Todo
 
-- Everything lol
-- Add connector to Schwab
-  - Get investments
-  - Get lots
-  - etc.
-- Add notification service
-- Direct indexing
+- [ ] Add connector to Schwab
+
+Mock schema:
+```json
+{
+  "AAPL": {
+    "currPrice": 250.12,
+    "lots": [
+      {
+        "buyDate": 1773369624,
+        "costBasis": 255.81
+      }
+    ]
+  }
+}
+```
+- [ ] Direct Indexing + Rebalancing
+
+Determine the underlying holdings of ETF e.g. VTI
+[https://www.etf.com/VTI](https://www.etf.com/VTI)
+
+Create adjacency list with data from
+[https://massive.com](https://massive.com)
+
+When selling a stock at loss, buy with equivalent.
+
+- [ ] Investment Gradual Realignment
+
+Monitor variance between my direct indexing and underlying ETF.
+
+As stock prices changes, some stocks become underweight/overweight.
+
+Compare allocations with that of underlying ETF.
+
+Sell overweight stocks and buy underweight stocks, reinvest dividends into underweight stocks.
+
+- [ ] Notification service (maybe AWS SNS)
+
+Notify me of all transactions. Maybe have me approve by sending "Yes" before make trade?
 
 ## Local Development
 
@@ -120,8 +152,5 @@ OR simply
 ```bash
 make minikube-apply
 ```
-
-
-
 
 Verify app can be accessible at `http://localhost:8080/_healthy`
