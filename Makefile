@@ -1,8 +1,13 @@
 run:
 	cp .env.example .env
-	cargo install --locked prek
 	docker compose build --no-cache
 	docker compose up -d
+
+setup-precommit:
+	cargo install --locked prek
+	brew install pre-commit
+	pre-commit install
+	pre-commit autoupdate
 
 format:
 	cargo fmt

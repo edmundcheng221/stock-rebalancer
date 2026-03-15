@@ -1,6 +1,14 @@
 repos:
-  - repo: builtin
-    rev: v0.2.10
+  - repo: local
     hooks:
-      - id: cargo fmt -- --check
-      - id: cargo clippy --all-targets -- -D warnings
+      - id: cargo-fmt
+        name: cargo fmt
+        entry: cargo fmt -- --check
+        language: system
+        types: [rust]
+      - id: cargo-clippy
+        name: cargo clippy
+        entry: cargo clippy --all-targets -- -D warnings
+        language: system
+        types: [rust]
+        pass_filenames: false

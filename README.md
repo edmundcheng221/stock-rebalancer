@@ -101,6 +101,14 @@ Apply both:
 make format
 ```
 
+## Precommit
+
+N.B. prek pre-commit is used. To setup, run:
+
+```bash
+make setup-precommit
+```
+
 ## Local Minikube Deployment
 
 Build image
